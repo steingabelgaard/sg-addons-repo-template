@@ -21,6 +21,10 @@ extend-select = [
 extend-safe-fixes = ["UP008"]
 exclude = ["setup/*"]
 
+[pycodestyle]
+# E501 reports lines that exceed the length of 199.
+max-line-length = 199
+
 [format]
 exclude = ["setup/*"]
 
