@@ -155,17 +155,17 @@ repos:
       - id: oca-update-pre-commit-excluded-addons
       - id: oca-fix-manifest-website
         args: ["{{ repo_website }}"]
-      - id: oca-gen-addon-readme
-        args:
-          - --addons-dir=.
-          - --branch={{ "%.01f" | format(odoo_version) }}
-          - --org-name={{ org_slug }}
-          - --repo-name={{ repo_slug }}
-          - --if-source-changed
-          - --keep-source-digest
-          {%- if convert_readme_fragments_to_markdown %}
-          - --convert-fragments-to-markdown
-          {%- endif %}
+      #- id: oca-gen-addon-readme
+      #  args:
+      #    - --addons-dir=.
+      #    - --branch={{ "%.01f" | format(odoo_version) }}
+      #    - --org-name={{ org_slug }}
+      #    - --repo-name={{ repo_slug }}
+      #    - --if-source-changed
+      #    - --keep-source-digest
+      #    {%- if convert_readme_fragments_to_markdown %}
+      #    - --convert-fragments-to-markdown
+      #    {%- endif %}
       {%- if use_pyproject_toml and generate_requirements_txt %}
       - id: oca-gen-external-dependencies
       {%- endif %}
@@ -193,21 +193,21 @@ repos:
     hooks:
       - id: black
   {%- endif %}
-  - repo: local
-    hooks:
-      - id: prettier
-        name: prettier (with plugin-xml)
-        entry: prettier
-        args:
-          - --write
-          - --list-different
-          - --ignore-unknown
-        types: [text]
-        files: \.(css|htm|html|js|json|jsx|less|md|scss|toml|ts|xml|yaml|yml)$
-        language: node
-        additional_dependencies:
-          - "prettier@{{ repo_rev.prettier }}"
-          - "@prettier/plugin-xml@{{ repo_rev.prettier_xml }}"
+  # - repo: local
+  #  hooks:
+  #    - id: prettier
+  #      name: prettier (with plugin-xml)
+  #      entry: prettier
+  #      args:
+  #        - --write
+  #        - --list-different
+  #        - --ignore-unknown
+  #      types: [text]
+  #      files: \.(css|htm|html|js|json|jsx|less|md|scss|toml|ts|xml|yaml|yml)$
+  #      language: node
+  #      additional_dependencies:
+  #        - "prettier@{{ repo_rev.prettier }}"
+  #        - "@prettier/plugin-xml@{{ repo_rev.prettier_xml }}"
   - repo: local
     hooks:
       - id: eslint
@@ -290,7 +290,7 @@ repos:
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
-      - id: ruff-format
+      # - id: ruff-format
   {%- endif %}
   - repo: https://github.com/OCA/pylint-odoo
     rev: {{ repo_rev.pylint_odoo }}

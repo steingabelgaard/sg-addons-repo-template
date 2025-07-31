@@ -10,7 +10,7 @@ extend-select = [
     "B",
     "C90",
     "E501",  # line too long (default 88)
-    "I",  # isort
+    # "I",  # isort
     {%- if odoo_version >= 15.0 %}
     "UP",  # pyupgrade
     {%- endif %}
@@ -18,8 +18,9 @@ extend-select = [
     "{{ rule }}",
     {%- endfor %}
 ]
-extend-safe-fixes = ["UP008"]
+# extend-safe-fixes = ["UP008"] # Do not rewrite super() calls
 exclude = ["setup/*"]
+ignore = ["UP030","UP031","UP008"]
 
 [pycodestyle]
 # E501 reports lines that exceed the length of 199.
@@ -27,17 +28,18 @@ max-line-length = 199
 
 [format]
 exclude = ["setup/*"]
+quote-style = "preserve"
 
-[{% if odoo_version >= 18 %}lint.{% endif %}per-file-ignores]
+[lint.per-file-ignores]
 "__init__.py" = ["F401", "I001"]  # ignore unused and unsorted imports in __init__.py
 "__manifest__.py" = ["B018"]  # useless expression
 
-[{% if odoo_version >= 18 %}lint.{% endif %}isort]
+[lint.isort]
 section-order = ["future", "standard-library", "third-party", "odoo", "odoo-addons", "first-party", "local-folder"]
 
-[{% if odoo_version >= 18 %}lint.{% endif %}isort.sections]
+[lint.isort.sections]
 "odoo" = ["odoo"]
 "odoo-addons" = ["odoo.addons"]
 
-[{% if odoo_version >= 18 %}lint.{% endif %}mccabe]
+[lint.mccabe]
 max-complexity = 16
