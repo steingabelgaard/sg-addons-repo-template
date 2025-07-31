@@ -1,7 +1,6 @@
-# OCA Addons Repo Template
+# S&G Addons Repo Template
 
-This is a template created to make easier the task of maintaining OCA addon
-repositories.
+Our adaption of [OCA/oca-addons-repo-template](https://github.com/OCA/oca-addons-repo-template.git) for use from Odoo v15+
 
 ## Why?
 
@@ -26,7 +25,7 @@ pipx install copier
 pipx install pre-commit
 pipx ensurepath
 # Clone this template and answer its questions
-copier copy --UNSAFE https://github.com/OCA/oca-addons-repo-template.git some-repo
+copier copy --UNSAFE https://github.com/steingabelgaard/sg-addons-repo-template.git some-repo
 # Commit that
 cd some-repo
 git add .
