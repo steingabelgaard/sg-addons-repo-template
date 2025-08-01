@@ -140,6 +140,15 @@ additional_ruff_rules:
   help: List of additional ruff rules to enable.
   when: "{{ use_ruff }}"
 
+lint_mode:
+  default: OCA
+  type: str
+  choices:
+    - OCA
+    - SG
+  help: Choose OCA or our more soft lint mode
+  when: "{{ use_ruff }}"
+
 rebel_module_groups:
   type: yaml
   default: []

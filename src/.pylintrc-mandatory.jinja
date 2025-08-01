@@ -32,7 +32,9 @@ enable=anomalous-backslash-in-string,
     attribute-deprecated,
     class-camelcase,
     dangerous-default-value,
+    {%- if lint_mode == 'OCA' %}
     dangerous-view-replace-wo-priority,
+    {%- endif %}
     development-status-allowed,
     duplicate-id-csv,
     duplicate-key,
@@ -67,26 +69,36 @@ enable=anomalous-backslash-in-string,
     translation-required,
     unreachable,
     use-vim-comment,
+    {%- if lint_mode == 'OCA' %}
     wrong-tabs-instead-of-spaces,
+    {%- endif %}
     xml-syntax-error
 {%- if odoo_version >= 15 %},
-    attribute-string-redundant,
+    # {%- if lint_mode == 'OCA' %}
+    # attribute-string-redundant,
+    # {%- endif %}
     character-not-valid-in-resource-link,
     consider-merging-classes-inherited,
     context-overridden,
     create-user-wo-reset-password,
     dangerous-filter-wo-user,
     dangerous-qweb-replace-wo-priority,
+    {%- if lint_mode == 'OCA' %}
     deprecated-data-xml-node,
+    {%- endif %}
     deprecated-openerp-xml-node,
     duplicate-po-message-definition,
     except-pass,
+    {%- if lint_mode == 'OCA' %}
     file-not-used,
+    {%- endif %}
     invalid-commit,
     manifest-maintainers-list,
     missing-newline-extrafiles,
+    {%- if lint_mode == 'OCA' %}
     missing-readme,
     missing-return,
+    {%- endif %}
     odoo-addons-relative-import,
     old-api7-method-defined,
     po-msgstr-variables,
@@ -96,7 +108,9 @@ enable=anomalous-backslash-in-string,
     str-format-used,
     test-folder-imported,
     translation-contains-variable,
+    {%- if lint_mode == 'OCA' %}
     translation-positional-used,
+    {%- endif %}
     unnecessary-utf8-coding-comment,
     website-manifest-key-not-valid-uri,
     xml-attribute-translatable,

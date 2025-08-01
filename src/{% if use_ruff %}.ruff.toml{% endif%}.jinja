@@ -8,7 +8,9 @@ fix = true
 [lint]
 extend-select = [
     "B",
+    {%- if lint_mode == 'OCA' %}
     "C90",
+    {%- endif %}
     "E501",  # line too long (default 88)
     # "I",  # isort
     {%- if odoo_version >= 15.0 %}
@@ -20,7 +22,12 @@ extend-select = [
 ]
 # extend-safe-fixes = ["UP008"] # Do not rewrite super() calls
 exclude = ["setup/*"]
-ignore = ["UP030","UP031","UP008"]
+ignore = [
+    "UP030",
+    "UP031",
+    "UP008",
+    "B023"
+    ]
 
 [pycodestyle]
 # E501 reports lines that exceed the length of 199.
