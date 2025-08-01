@@ -124,7 +124,7 @@ jobs:
         {%- endif %}
     services:
       postgres:
-        {%- if odoo_version < 16 %}
+        {%- if odoo_version < 14 %}
         image: postgres:9.6
         {%- else %}
         image: postgres:12.0
@@ -166,10 +166,8 @@ jobs:
         with:
           token: {{"${{ secrets.CODECOV_TOKEN }}"}}
       {%- endif %}
-      {% raw -%}
       - name: Copy .pot files
-        run: sg_copy_and_commit_pot https://${{ secrets.GIT_PUSH_TOKEN }}@github.com/${{ github.repository }} {{ odoo_version }}-beta
-      {%- endraw %}
+        run: sg_copy_and_commit_pot https://{{ "${{" }} secrets.GIT_PUSH_TOKEN {{ "}}" }}@github.com/{{ "${{" }} github.repository {{ "}}" }} {{ odoo_version }}-beta
         if: {{ "${{" }} matrix.makepot == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/{{ odoo_version }}' && github.repository_owner == '{{ org_slug }}' {{ "}}" }}
       {% raw -%}
       - name: Update .pot files
