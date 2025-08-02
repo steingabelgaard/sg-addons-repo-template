@@ -1,5 +1,7 @@
 {%- if odoo_version < 13 %}
   {%- include "version-specific/mqt-compat/.pylintrc.jinja" %}
+{%- elif lint_mode == 'SG15COMPAT' %}
+  {%- include "src_sg15legacy/.pylintrc.jinja" %}
 {%- else %}
 {% extends "src/.pylintrc-mandatory.jinja" %}
 {% block note %}

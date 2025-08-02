@@ -3,7 +3,11 @@ target-version = "py310"
 {%- elif odoo_version >= 15.0 %}
 target-version = "py38"
 {%- endif %}
+{%- if lint_mode == 'SG15COMPAT' %}
+fix = false
+{%- else %}
 fix = true
+{%- endif %}
 
 [lint]
 extend-select = [
@@ -13,7 +17,7 @@ extend-select = [
     {%- endif %}
     "E501",  # line too long (default 88)
     # "I",  # isort
-    {%- if odoo_version >= 15.0 %}
+    {%- if odoo_version >= 15.0 and lint_mode != 'SG15COMPAT' %}
     "UP",  # pyupgrade
     {%- endif %}
     {%- for rule in additional_ruff_rules %}
@@ -25,8 +29,12 @@ exclude = ["setup/*"]
 ignore = [
     "UP030",
     "UP031",
+    "UP032",
     "UP008",
     "B023"
+    {% if lint_mode == 'SG15COMPAT' %},
+    "B904","E226","E241","E242","E741","F811","F601","E203"
+    {% endif %}
     ]
 
 [pycodestyle]

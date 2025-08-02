@@ -1,6 +1,6 @@
 # Configure jinja2 defaults to make syntax highlighters happy
 _templates_suffix: .jinja
-_subdirectory: src
+_subdirectory: "{%if lint_mode == 'SG15LEGACY' %}src_sg15legacy{% else %}src{% endif %}"
 _min_copier_version: "9"
 
 _tasks:
@@ -146,6 +146,8 @@ lint_mode:
   choices:
     - OCA
     - SG
+    - SG15COMPAT
+    - SG15LEGACY
   help: Choose OCA or our more soft lint mode
   when: "{{ use_ruff }}"
 
