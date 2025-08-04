@@ -33,11 +33,11 @@ ignore = [
     "UP008",
     "B023"
     {% if lint_mode == 'SG15COMPAT' %},
-    "B904","E226","E241","E242","E741","F811","F601","E203"
+    "B018","B904","E226","E241","E242","E741","F811","F601","E203"
     {% endif %}
     ]
 
-[pycodestyle]
+[lint.pycodestyle]
 # E501 reports lines that exceed the length of 199.
 max-line-length = 199
 
