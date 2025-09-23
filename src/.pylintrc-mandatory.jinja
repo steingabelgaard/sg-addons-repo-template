@@ -19,7 +19,11 @@ valid_odoo_versions={{ odoo_version }}
 readme-template-url="https://github.com/OCA/maintainer-tools/blob/master/template/module/README.rst"
 manifest-required-authors={{ org_name }}
 manifest-required-keys=license
+{%- if lint_mode == 'OCA' %}
 manifest-deprecated-keys=description,active
+{%- else %}
+manifest-deprecated-keys=active
+{%- endif %}
 license-allowed=AGPL-3,GPL-2,GPL-2 or any later version,GPL-3,GPL-3 or any later version,LGPL-3
 valid-odoo-versions={{ odoo_version }}
 {%- endif %}
