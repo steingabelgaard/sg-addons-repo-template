@@ -174,3 +174,11 @@ jobs:
         run: oca_export_and_push_pot https://${{ secrets.GIT_PUSH_TOKEN }}@github.com/${{ github.repository }}
       {%- endraw %}
         if: {{ "${{" }} matrix.makepot == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/{{ odoo_version }}-beta' && github.repository_owner == '{{ org_slug }}' {{ "}}" }}
+      - name: Merge to beta - Sync .po/.pot files back
+        if: {{ "${{" }} matrix.makepot == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/{{ odoo_version }}' && github.repository_owner == '{{ org_slug }}' {{ "}}" }}
+        uses: mtanzi/action-automerge@v1
+        id: merge
+        with:
+          github_token: ${{ github.token }}
+          source: '{{ odoo_version }}'
+          target: '{{ odoo_version }}-beta'
