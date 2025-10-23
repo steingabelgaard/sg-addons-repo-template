@@ -179,6 +179,8 @@ jobs:
         uses: mtanzi/action-automerge@v1
         id: merge
         with:
+          {% raw -%}
           github_token: ${{ github.token }}
+          {%- endraw %}
           source: '{{ odoo_version }}'
           target: '{{ odoo_version }}-beta'
