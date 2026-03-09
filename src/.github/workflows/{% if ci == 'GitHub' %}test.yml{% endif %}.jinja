@@ -9,7 +9,8 @@ on:
       - "{{ odoo_version }}"
       - "{{ odoo_version }}-beta"
       - "{{ odoo_version }}-ocabot-*"
-
+  workflow_dispatch:
+  
 {%
 set IMAGES = {
   "odoo": {
