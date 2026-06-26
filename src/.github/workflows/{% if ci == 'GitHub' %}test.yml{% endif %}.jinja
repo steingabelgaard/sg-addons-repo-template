@@ -14,6 +14,7 @@ on:
 {%
 set IMAGES = {
   "odoo": {
+    19.0: "ghcr.io/steingabelgaard/oca-ci18/py3.10-odoo19.0:latest",
     18.0: "ghcr.io/steingabelgaard/oca-ci18/py3.10-odoo18.0:latest",
     17.0: "ghcr.io/steingabelgaard/oca-ci18/py3.10-odoo17.0:latest",
     16.0: "ghcr.io/steingabelgaard/oca-ci18/py3.10-odoo16.0:latest",
@@ -25,6 +26,7 @@ set IMAGES = {
     10.0: "ghcr.io/steingabelgaard/oca-ci18/py2.7-odoo10.0:latest",
   },
   "ocb": {
+    19.0: "ghcr.io/steingabelgaard/oca-ci18/py3.10-ocb19.0:latest",
     18.0: "ghcr.io/steingabelgaard/oca-ci18/py3.10-ocb18.0:latest",
     17.0: "ghcr.io/steingabelgaard/oca-ci18/py3.10-ocb17.0:latest",
     16.0: "ghcr.io/steingabelgaard/oca-ci18/py3.10-ocb16.0:latest",
@@ -122,6 +124,7 @@ jobs:
             name: test with OCB
             {%- endif %}
             makepot: "{{ github_enable_makepot | bool | lower }}"
+            copypot: "{{ github_enable_makepot | bool | lower }}"
         {%- endif %}
     services:
       postgres:
@@ -169,14 +172,14 @@ jobs:
       {%- endif %}
       - name: Copy .pot files
         run: sg_copy_and_commit_pot https://{{ "${{" }} secrets.GIT_PUSH_TOKEN {{ "}}" }}@github.com/{{ "${{" }} github.repository {{ "}}" }} {{ odoo_version }}-beta
-        if: {{ "${{" }} matrix.makepot == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/{{ odoo_version }}' && github.repository_owner == '{{ org_slug }}' {{ "}}" }}
+        if: {{ "${{" }} matrix.copypot == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/{{ odoo_version }}' && github.repository_owner == '{{ org_slug }}' {{ "}}" }}
       {% raw -%}
       - name: Update .pot files
         run: oca_export_and_push_pot https://${{ secrets.GIT_PUSH_TOKEN }}@github.com/${{ github.repository }}
       {%- endraw %}
         if: {{ "${{" }} matrix.makepot == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/{{ odoo_version }}-beta' && github.repository_owner == '{{ org_slug }}' {{ "}}" }}
       - name: Merge to beta - Sync .po/.pot files back
-        if: {{ "${{" }} matrix.makepot == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/{{ odoo_version }}' && github.repository_owner == '{{ org_slug }}' {{ "}}" }}
+        if: {{ "${{" }} matrix.copypot == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/{{ odoo_version }}' && github.repository_owner == '{{ org_slug }}' {{ "}}" }}
         uses: mtanzi/action-automerge@v1
         id: merge
         with:
