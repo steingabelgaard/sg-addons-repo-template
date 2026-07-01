@@ -250,8 +250,8 @@ repos:
       - id: debug-statements
       {%- if odoo_version < 19.0 %}
       - id: fix-encoding-pragma
-      {%- endif %}
         args: ["--remove"]
+      {%- endif %}
       - id: check-case-conflict
       - id: check-docstring-first
       - id: check-executables-have-shebangs
