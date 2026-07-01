@@ -248,7 +248,9 @@ repos:
         exclude: /README\.rst$|\.pot?$
       {%- if lint_mode != 'SG15COMPAT' %}
       - id: debug-statements
+      {%- if odoo_version < 19.0 %}
       - id: fix-encoding-pragma
+      {%- endif %}
         args: ["--remove"]
       - id: check-case-conflict
       - id: check-docstring-first
