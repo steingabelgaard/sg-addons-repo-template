@@ -1,7 +1,5 @@
 {%- if odoo_version < 13 %}
   {%- include "version-specific/mqt-compat/.pylintrc.jinja" %}
-{%- elif lint_mode == 'SG15COMPAT' %}
-  {%- include "src_sg15legacy/.pylintrc.jinja" %}
 {%- else %}
 {% extends "src/.pylintrc-mandatory.jinja" %}
 {% block note %}
@@ -13,33 +11,30 @@
 # config as a blocking check.
 {% endblock %}
 {% block optional_checks %},
-    # messages that do not cause the lint step to fail
-    consider-merging-classes-inherited,
+{%- if odoo_version <= 18 %}
+    missing-manifest-dependency,
+    too-complex,
+{%- endif %}
+{%- if odoo_version >= 15 and odoo_version <= 18 %},
     create-user-wo-reset-password,
     dangerous-filter-wo-user,
-    dangerous-view-replace-wo-priority,
-    deprecated-module,
     file-not-used,
-    invalid-commit,
-    missing-manifest-dependency,
     missing-newline-extrafiles,
-    missing-readme,
     no-utf8-coding-comment,
-    odoo-addons-relative-import,
     old-api7-method-defined,
-    redefined-builtin,
-    too-complex,
     unnecessary-utf8-coding-comment,
-    wrong-tabs-instead-of-spaces
-{%- if odoo_version >= 15 %},
-    deprecated-data-xml-node,
-    file-not-used,
-    missing-readme,
-    missing-return,
-    translation-positional-used
 {%- endif %}
-{%- if odoo_version >= 19 %}
+    # messages that do not cause the lint step to fail
+    consider-merging-classes-inherited,
+    deprecated-module,
+    invalid-commit,
+    missing-readme,
+    odoo-addons-relative-import,
+    redefined-builtin,
+    manifest-external-assets
+{%- if lint_mode == 'SG' %}
+    dangerous-view-replace-wo-priority,
     prefer-env-translation,
-    {%- endif %}
+{% endif %}
 {% endblock %}
 {%- endif %}
