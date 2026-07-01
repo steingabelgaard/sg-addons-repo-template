@@ -108,7 +108,9 @@ enable=anomalous-backslash-in-string,
     except-pass,
     invalid-commit,
     manifest-maintainers-list,
+    {%- if lint_mode == 'OCA' %}
     missing-readme,
+    {%- endif %}
     missing-return,
     odoo-addons-relative-import,
     renamed-field-parameter,
