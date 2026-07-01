@@ -38,5 +38,8 @@
     missing-return,
     translation-positional-used
 {%- endif %}
+{%- if odoo_version >= 19 %}
+    prefer-env-translation,
+    {%- endif %}
 {% endblock %}
 {%- endif %}
